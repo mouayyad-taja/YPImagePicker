@@ -70,10 +70,10 @@ class ExampleViewController: UIViewController {
         /* Uncomment and play around with the configuration 👨‍🔬 🚀 */
 
         /* Set this to true if you want to force the  library output to be a squared image. Defaults to false */
-//         config.library.onlySquare = true
+//         config.library.onlySquare = false
 
         /* Set this to true if you want to force the camera output to be a squared image. Defaults to true */
-        // config.onlySquareImagesFromCamera = false
+         config.onlySquareImagesFromCamera = false
 
         /* Ex: cappedTo:1024 will make sure images from the library or the camera will be
            resized to fit in a 1024x1024 box. Defaults to original image size. */
@@ -140,7 +140,7 @@ class ExampleViewController: UIViewController {
         config.hidesStatusBar = false
 
         /* Defines if the bottom bar should be hidden when showing the picker. Default is false */
-        config.hidesBottomBar = false
+        config.hidesBottomBar = true
         
         config.maxCameraZoomFactor = 2.0
 

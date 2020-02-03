@@ -31,7 +31,11 @@ final class YPBottomPagerView: UIView {
         )
         
         if #available(iOS 11.0, *) {
-            header.Bottom == safeAreaLayoutGuide.Bottom
+            if YPConfig.hidesBottomBar {
+                header.bottom(0)
+            }else {
+                header.Bottom == safeAreaLayoutGuide.Bottom
+            }
         } else {
             header.bottom(0)
         }
