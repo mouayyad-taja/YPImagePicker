@@ -26,4 +26,13 @@ extension AVCaptureDevice {
             unlockForConfiguration()
         } catch _ { }
     }
+    
+    func trySetTorch(torchMode: TorchMode) {
+        guard hasFlash else { return }
+        do {
+            try lockForConfiguration()
+            self.torchMode = torchMode
+            unlockForConfiguration()
+        } catch _ { }
+    }
 }

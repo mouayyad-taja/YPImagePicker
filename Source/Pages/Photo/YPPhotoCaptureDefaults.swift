@@ -97,6 +97,12 @@ extension YPPhotoCapture {
         }
     }
     
+    func hide(){
+        self.videoLayer?.isHidden = true
+    }
+    func show(){
+        self.videoLayer?.isHidden = false
+    }
     // MARK: - Focus
     
     func focus(on point: CGPoint) {

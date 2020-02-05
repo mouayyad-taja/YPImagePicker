@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34AD4B7523E978BB001EE2BF /* YPCameraVideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AD4B7423E978BB001EE2BF /* YPCameraVideoVC.swift */; };
+		34AD4B7723EA42F7001EE2BF /* YPCameraVideoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AD4B7623EA42F7001EE2BF /* YPCameraVideoHelper.swift */; };
+		34AD4B7923EA43F3001EE2BF /* PreiOS10PhotoVideoCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AD4B7823EA43F3001EE2BF /* PreiOS10PhotoVideoCapture.swift */; };
+		34AD4B7B23EA443B001EE2BF /* PostiOS10PhotoVideoCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AD4B7A23EA443B001EE2BF /* PostiOS10PhotoVideoCapture.swift */; };
+		34AD4B7D23EA4474001EE2BF /* YPPhotoVideoCaptureDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AD4B7C23EA4474001EE2BF /* YPPhotoVideoCaptureDefaults.swift */; };
 		8458057421819B95004F241C /* YPImagePickerLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 99C6D6991F1FB5C100711DB2 /* YPImagePickerLocalizable.strings */; };
 		99019E4C2018CCD6007325C2 /* YPBottomPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99019E4B2018CCD6007325C2 /* YPBottomPagerView.swift */; };
 		99019E4E2018CD31007325C2 /* YPPagerMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99019E4D2018CD31007325C2 /* YPPagerMenu.swift */; };
@@ -98,6 +103,11 @@
 		16550C5C214D5EE60090BADF /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/YPImagePickerLocalizable.strings; sourceTree = "<group>"; };
 		2577138123B1E09300BB9C86 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/YPImagePickerLocalizable.strings; sourceTree = "<group>"; };
 		2577138223B1E09E00BB9C86 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/YPImagePickerLocalizable.strings; sourceTree = "<group>"; };
+		34AD4B7423E978BB001EE2BF /* YPCameraVideoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPCameraVideoVC.swift; sourceTree = "<group>"; };
+		34AD4B7623EA42F7001EE2BF /* YPCameraVideoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPCameraVideoHelper.swift; sourceTree = "<group>"; };
+		34AD4B7823EA43F3001EE2BF /* PreiOS10PhotoVideoCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreiOS10PhotoVideoCapture.swift; sourceTree = "<group>"; };
+		34AD4B7A23EA443B001EE2BF /* PostiOS10PhotoVideoCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostiOS10PhotoVideoCapture.swift; sourceTree = "<group>"; };
+		34AD4B7C23EA4474001EE2BF /* YPPhotoVideoCaptureDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPPhotoVideoCaptureDefaults.swift; sourceTree = "<group>"; };
 		3B0E1B962070669B0048E95B /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/YPImagePickerLocalizable.strings; sourceTree = "<group>"; };
 		4EA67521208A45080076D4E3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/YPImagePickerLocalizable.strings; sourceTree = "<group>"; };
 		52412A931CA6114A0073C4BE /* YPImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YPImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -214,6 +224,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		34AD4B7323E966E6001EE2BF /* PhotoAndVideo */ = {
+			isa = PBXGroup;
+			children = (
+				34AD4B7423E978BB001EE2BF /* YPCameraVideoVC.swift */,
+				34AD4B7623EA42F7001EE2BF /* YPCameraVideoHelper.swift */,
+				34AD4B7823EA43F3001EE2BF /* PreiOS10PhotoVideoCapture.swift */,
+				34AD4B7A23EA443B001EE2BF /* PostiOS10PhotoVideoCapture.swift */,
+				34AD4B7C23EA4474001EE2BF /* YPPhotoVideoCaptureDefaults.swift */,
+			);
+			path = PhotoAndVideo;
+			sourceTree = "<group>";
+		};
 		52412A891CA6114A0073C4BE = {
 			isa = PBXGroup;
 			children = (
@@ -434,6 +456,7 @@
 		EB65C4B3209281A10037858B /* Pages */ = {
 			isa = PBXGroup;
 			children = (
+				34AD4B7323E966E6001EE2BF /* PhotoAndVideo */,
 				99C6D69E1F1FB5C100711DB2 /* Gallery */,
 				99C6D6A61F1FB5C100711DB2 /* Photo */,
 				99C6D6B61F1FB5C100711DB2 /* Video */,
@@ -594,6 +617,7 @@
 				99D1DC2B1F9788930047F0E0 /* YPImagePickerConfiguration.swift in Sources */,
 				99B8C4C3208F8EE900127119 /* YPLoadingView.swift in Sources */,
 				99278DAA20512BFB0059532E /* PostiOS10PhotoCapture.swift in Sources */,
+				34AD4B7523E978BB001EE2BF /* YPCameraVideoVC.swift in Sources */,
 				990FD297201B4A5F002A39A1 /* PHCachingImageManager+Extensions.swift in Sources */,
 				99CF6D23201B71DC00487F77 /* YPLibrary+LibraryChange.swift in Sources */,
 				99C6D6C51F1FB5C100711DB2 /* YPFilterCollectionViewCell.swift in Sources */,
@@ -622,10 +646,12 @@
 				99278DB02051816F0059532E /* YPPhotoCaptureDefaults.swift in Sources */,
 				99C6D6CE1F1FB5C100711DB2 /* YPPhotoSaver.swift in Sources */,
 				99C6D6C31F1FB5C100711DB2 /* YPCameraView.swift in Sources */,
+				34AD4B7B23EA443B001EE2BF /* PostiOS10PhotoVideoCapture.swift in Sources */,
 				99019E562018D008007325C2 /* YPMenuItem.swift in Sources */,
 				AA69BCF222E601D100FBB925 /* YPDeviceOrientationHelper.swift in Sources */,
 				9915D9D32087E692003FC307 /* YPLibrarySelection.swift in Sources */,
 				EB1AB2EA20AC1DED00BFA79F /* CGFloat+Extensions.swift in Sources */,
+				34AD4B7D23EA4474001EE2BF /* YPPhotoVideoCaptureDefaults.swift in Sources */,
 				99C6D6C21F1FB5C100711DB2 /* YPCameraVC.swift in Sources */,
 				990FD299201B67FE002A39A1 /* PHFetchResult+Extensions.swift in Sources */,
 				EB473E1B208E1B7400D16105 /* NSFileManager+Extensions.swift in Sources */,
@@ -633,7 +659,9 @@
 				99A0529D1F20B45D005600B3 /* YPAlbumView.swift in Sources */,
 				EB473E21208E1BF400D16105 /* YPTrimError.swift in Sources */,
 				EB584C03207B990200265B38 /* AVFoundation+Extensions.swift in Sources */,
+				34AD4B7723EA42F7001EE2BF /* YPCameraVideoHelper.swift in Sources */,
 				99C6D6BF1F1FB5C100711DB2 /* YPGridView.swift in Sources */,
+				34AD4B7923EA43F3001EE2BF /* PreiOS10PhotoVideoCapture.swift in Sources */,
 				99C6D6D01F1FB5C100711DB2 /* YPVideoCaptureVC.swift in Sources */,
 				99A052A31F20B4CA005600B3 /* YPAlbumsManager.swift in Sources */,
 				EB473E25208E1DCA00D16105 /* AVCaptureSession+Extensions.swift in Sources */,

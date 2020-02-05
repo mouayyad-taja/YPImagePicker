@@ -12,4 +12,5 @@ public enum YPPickerScreen {
     case library
     case photo
     case video
+    case photoVideo
 }

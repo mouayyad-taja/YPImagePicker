@@ -33,12 +33,14 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
         case library
         case camera
         case video
+        case cameraVideo
     }
     
     private var libraryVC: YPLibraryVC?
     private var cameraVC: YPCameraVC?
     private var videoVC: YPVideoCaptureVC?
-    
+    private var cameraVideoVC: YPCameraVideoVC?
+
     var mode = Mode.camera
     
     var capturedImage: UIImage?
@@ -81,6 +83,25 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
             }
         }
         
+        
+        
+        // Camera Video
+        if YPConfig.screens.contains(.photoVideo) {
+            cameraVideoVC = YPCameraVideoVC()
+            cameraVideoVC?.didCapturePhoto = { [weak self] img in
+                self?.didSelectItems?([YPMediaItem.photo(p: YPMediaPhoto(image: img,
+                                                                        fromCamera: true))])
+            }
+            
+            
+            cameraVideoVC?.didCaptureVideo = { [weak self] videoURL in
+                self?.didSelectItems?([YPMediaItem
+                    .video(v: YPMediaVideo(thumbnail: thumbnailFromVideoPath(videoURL),
+                                           videoURL: videoURL,
+                                           fromCamera: true))])
+            }
+        }
+        
         // Show screens
         var vcs = [UIViewController]()
         for screen in YPConfig.screens {
@@ -97,6 +118,10 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
                 if let videoVC = videoVC {
                     vcs.append(videoVC)
                 }
+            case .photoVideo:
+                if let cameraVideoVC = cameraVideoVC {
+                    vcs.append(cameraVideoVC)
+                }
             }
         }
         controllers = vcs
@@ -110,6 +135,8 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
                 mode = .camera
             case .video:
                 mode = .video
+            case .photoVideo:
+                mode = .cameraVideo
             }
         }
         
@@ -125,7 +152,8 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cameraVC?.v.shotButton.isEnabled = true
-        
+        cameraVideoVC?.v.shotButton.isEnabled = true
+        cameraVideoVC?.refresh()
         updateMode(with: currentController)
     }
     
@@ -170,6 +198,8 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
             cameraVC.start()
         } else if let videoVC = vc as? YPVideoCaptureVC {
             videoVC.start()
+        } else if let cameraVideoVC = vc as? YPCameraVideoVC {
+            cameraVideoVC.start()
         }
     
         updateUI()
@@ -183,6 +213,8 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
             cameraVC?.stopCamera()
         case .video:
             videoVC?.stopCamera()
+        case .cameraVideo:
+            cameraVideoVC?.stopCamera()
         }
     }
     
@@ -289,6 +321,10 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
             navigationItem.titleView = nil
             title = videoVC?.title
             navigationItem.rightBarButtonItem = nil
+        case .cameraVideo:
+            navigationItem.titleView = nil
+            title = ""
+            navigationItem.rightBarButtonItem = nil
         }
     }
     
@@ -324,6 +360,7 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
         libraryVC?.v.assetZoomableView.videoView.deallocate()
         videoVC?.stopCamera()
         cameraVC?.stopCamera()
+        cameraVideoVC?.stopCamera()
     }
 }
 

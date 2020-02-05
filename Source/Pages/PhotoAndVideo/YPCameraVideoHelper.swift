@@ -1,19 +1,21 @@
 //
-//  YPPhotoCapture.swift
+//  YPCameraVideoHelper.swift
 //  YPImagePicker
 //
-//  Created by Sacha DSO on 08/03/2018.
-//  Copyright © 2018 Yummypets. All rights reserved.
+//  Created by Mouayyad Taja on 2/5/20.
+//  Copyright © 2020 Yummypets. All rights reserved.
 //
 
 import Foundation
 import AVFoundation
 import UIKit
+import CoreMotion
 
-protocol YPPhotoCapture: class {
+
+protocol YPPhotoVideoCapture: class {
     
     // Public api
-    func start(with previewView: UIView, completion: @escaping () -> Void)
+    func start(with previewView: UIView, withVideoRecordingLimit: TimeInterval, completion: @escaping () -> Void)
     func stopCamera()
     func focus(on point: CGPoint)
     func zoom(began: Bool, scale: CGFloat)
@@ -24,6 +26,7 @@ protocol YPPhotoCapture: class {
     func shoot(completion: @escaping (Data) -> Void)
     var videoLayer: AVCaptureVideoPreviewLayer! { get set }
     var device: AVCaptureDevice? { get }
+    
     
     // Used by Default extension
     var previewView: UIView! { get set }
@@ -36,11 +39,28 @@ protocol YPPhotoCapture: class {
     var initVideoZoomFactor: CGFloat { get set }
     func configure()
     
+    var currentCameraMode: CameraMode! { get set }
+    var cameraMode: CameraMode{ get }
     
     var currentCameraPosition: AVCaptureDevice.Position { get }
     
+    
+    //video attribute
+    var isRecording: Bool  { get }//{ return videoOutput.isRecording }
+    var didCaptureVideo: ((URL) -> Void)? { get set }
+    var videoRecordingProgress: ((Float, TimeInterval) -> Void)? { get set }
+
+    var timer : Timer { get set }
+    var dateVideoStarted :Date { get set }
+//    var videoInput: AVCaptureDeviceInput? { get set }
+    var videoOutput : AVCaptureMovieFileOutput { get set }
+    var videoRecordingTimeLimit: TimeInterval { get set }
+    var motionManager : CMMotionManager { get set }
+
 }
-extension YPPhotoCapture {
+extension YPPhotoVideoCapture {
+    
+    
     public var currentCameraPosition: AVCaptureDevice.Position {
         if let deviceInput = self.deviceInput {
             return deviceInput.device.position
@@ -48,40 +68,22 @@ extension YPPhotoCapture {
         return .unspecified
     }
 }
-func newPhotoCapture() -> YPPhotoCapture {
+func newPhotoVideoCapture() -> YPPhotoVideoCapture {
     if #available(iOS 10.0, *) {
-        return PostiOS10PhotoCapture()
+        return PostiOS10PhotoVideoCapture()
     } else {
-        return PreiOS10PhotoCapture()
+        return PreiOS10PhotoVideoCapture()
     }
 }
 
-enum YPFlashMode {
-    case off
-    case on
-    case auto
-    
-    func torchMode()-> AVCaptureDevice.TorchMode {
-        switch self {
-        case .on:
-            return .on
-        case .off:
-            return .off
-        case .auto:
-            return .auto
-            
-        @unknown default:
-            fatalError()
-        }
-    }
-}
-
-extension YPFlashMode {
-    func flashImage() -> UIImage {
-        switch self {
-        case .on: return YPConfig.icons.flashOnIcon
-        case .off: return YPConfig.icons.flashOffIcon
-        case .auto: return YPConfig.icons.flashAutoIcon
-        }
-    }
+enum CameraMode {
+   case camera
+   case video
+   
+   var isCamera: Bool {
+       return self == .camera
+   }
+   var isVideo: Bool {
+       return self == .video
+   }
 }

@@ -20,7 +20,7 @@ class YPVideoCaptureHelper: NSObject {
     private let session = AVCaptureSession()
     private var timer = Timer()
     private var dateVideoStarted = Date()
-    private let sessionQueue = DispatchQueue(label: "YPVideoVCSerialQueue")
+    private let sessionQueue = DispatchQueue(label: "YPVideoVCSerialQueue", qos: .background)
     private var videoInput: AVCaptureDeviceInput?
     private var videoOutput = AVCaptureMovieFileOutput()
     private var videoRecordingTimeLimit: TimeInterval = 0
@@ -30,6 +30,13 @@ class YPVideoCaptureHelper: NSObject {
     private var motionManager = CMMotionManager()
     private var initVideoZoomFactor: CGFloat = 1.0
     
+    public var currentCameraPosition: AVCaptureDevice.Position {
+        if let deviceInput = self.videoInput {
+            return deviceInput.device.position
+        }
+        return .unspecified
+    }
+//    private var videoLayer: CALayer?
     // MARK: - Init
     
     public func start(previewView: UIView, withVideoRecordingLimit: TimeInterval, completion: @escaping () -> Void) {
@@ -177,6 +184,10 @@ class YPVideoCaptureHelper: NSObject {
         videoInput?.device.tryToggleTorch()
     }
     
+    public func setTorch(torchMode: AVCaptureDevice.TorchMode) {
+        videoInput?.device.trySetTorch(torchMode: torchMode)
+    }
+    
     // MARK: - Recording
     
     public func startRecording() {
@@ -283,11 +294,19 @@ class YPVideoCaptureHelper: NSObject {
     func setupPreview() {
         let videoLayer = AVCaptureVideoPreviewLayer(session: session)
         DispatchQueue.main.async {
+//            self.videoLayer = videoLayer
             videoLayer.frame = self.previewView.bounds
             videoLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
             self.previewView.layer.addSublayer(videoLayer)
         }
     }
+    
+//    func hide(){
+//        self.videoLayer?.isHidden = true
+//    }
+//    func show(){
+//        self.videoLayer?.isHidden = false
+//    }
 }
 
 extension YPVideoCaptureHelper: AVCaptureFileOutputRecordingDelegate {
