@@ -100,6 +100,10 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
                                            videoURL: videoURL,
                                            fromCamera: true))])
             }
+            cameraVideoVC?.didCloseVC = {
+                self.close()
+            }
+            
         }
         
         // Show screens

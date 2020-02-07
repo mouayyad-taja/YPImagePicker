@@ -135,6 +135,7 @@ class ExampleViewController: UIViewController {
 
         /* Customize wordings */
         config.wordings.libraryTitle = "Gallery"
+        config.wordings.cameraVideoHint = "Tap and hold for video."
 
         /* Defines if the status bar should be hidden when showing the picker. Default is true */
         config.hidesStatusBar = false
@@ -142,11 +143,28 @@ class ExampleViewController: UIViewController {
         /* Defines if the bottom bar should be hidden when showing the picker. Default is false */
         config.hidesBottomBar = true
         
+        config.hidesNavigationBar = true
+        
         config.maxCameraZoomFactor = 2.0
 
         config.library.maxNumberOfItems = 5
         config.gallery.hidesRemoveButton = false
         
+        
+        config.preferredStatusBarStyle = .lightContent
+        //Set colors
+        config.colors.hintTextColor = .white
+        config.colors.photoVideoScreenBackgroundColor = .black
+        config.colors.progressBarRecordingColor = .red
+        
+        /* Images */
+        config.icons.flashOffIcon = #imageLiteral(resourceName: "flash_auto.png")
+        config.icons.loopIcon = #imageLiteral(resourceName: "flip_camera.png")
+        config.icons.galleryImage = #imageLiteral(resourceName: "photo_library.png")
+        config.icons.captureVideoImage = #imageLiteral(resourceName: "videoCapture.png")
+        config.icons.captureVideoOnImage = #imageLiteral(resourceName: "videoCaptureRecording.png")
+        config.icons.capturePhotoImage = #imageLiteral(resourceName: "cameraCapture.png")
+
         /* Disable scroll to change between mode */
         // config.isScrollToChangeModesEnabled = false
 //        config.library.minNumberOfItems = 2

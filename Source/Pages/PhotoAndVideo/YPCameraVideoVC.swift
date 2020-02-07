@@ -14,7 +14,7 @@ class YPCameraVideoVC: UIViewController, UIGestureRecognizerDelegate, YPPermissi
     
     //public attriutes
     var isInited = false
-    let v: YPCameraView!
+    let v: YPCameraVideoView!
     
     //camera attributes
     let photoCapture = newPhotoVideoCapture()
@@ -23,6 +23,7 @@ class YPCameraVideoVC: UIViewController, UIGestureRecognizerDelegate, YPPermissi
     
     //video attributes
     public var didCaptureVideo: ((URL) -> Void)?
+    public var didCloseVC: (() -> Void)?
     //    private let videoHelper = YPVideoCaptureHelper()
     //        private let v = YPCameraView(overlayView: nil)
     private var viewState = ViewState()
@@ -34,7 +35,7 @@ class YPCameraVideoVC: UIViewController, UIGestureRecognizerDelegate, YPPermissi
     // MARK: - Init
     
     public required init() {
-        self.v = YPCameraView(overlayView: nil)//YPCameraView(overlayView: YPConfig.overlayView)
+        self.v = YPCameraVideoView(overlayView: nil)//YPCameraView(overlayView: YPConfig.overlayView)
         super.init(nibName: nil, bundle: nil)
         //        title = YPConfig.wordings.videoTitle
         //        title = YPConfig.wordings.cameraTitle
@@ -65,7 +66,7 @@ class YPCameraVideoVC: UIViewController, UIGestureRecognizerDelegate, YPPermissi
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        v.timeElapsedLabel.isHidden = true // hide the time elapsed label since we're in the camera screen.
+        //        v.timeElapsedLabel.isHidden = true // hide the time elapsed label since we're in the camera screen.
         
         v.flashButton.isHidden = true
         
@@ -98,8 +99,9 @@ class YPCameraVideoVC: UIViewController, UIGestureRecognizerDelegate, YPPermissi
             self.setupButtons()
             self.linkButtons()
             self.v.shotButton.isEnabled = true
+            self.v.hideVideo()
             self.refreshFlashButton()
-            v.timeElapsedLabel.isHidden = self.photoCapture.cameraMode.isCamera // hide the time elapsed label since we're in the camera screen.
+            //            v.timeElapsedLabel.isHidden = self.photoCapture.cameraMode.isCamera // hide the time elapsed label since we're in the camera screen.
         }
     }
     
@@ -136,6 +138,16 @@ class YPCameraVideoVC: UIViewController, UIGestureRecognizerDelegate, YPPermissi
         let pinchRecongizer = UIPinchGestureRecognizer(target: self, action: #selector(self.pinch(_:)))
         pinchRecongizer.delegate = self
         v.previewViewContainer.addGestureRecognizer(pinchRecongizer)
+        
+        
+        // Close
+        let tapCloseRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.closeTapped))
+        v.closeButton.addGestureRecognizer(tapCloseRecognizer);
+        
+        
+        // Gallery
+        let tapGalleryRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.galleryTapped))
+        v.galleryButton.addGestureRecognizer(tapGalleryRecognizer);
     }
     
     
@@ -199,6 +211,113 @@ class YPCameraVideoVC: UIViewController, UIGestureRecognizerDelegate, YPPermissi
         //        if self.cameraMode.isVideo {
         //            videoHelper.zoom(began: recognizer.state == .began, scale: recognizer.scale)
         //        }
+    }
+    
+    
+    
+    // MARK: - Close
+    
+    @objc
+    func closeTapped() {
+        didCloseVC?()
+    }
+    
+    // MARK: - Gallery
+    @objc
+    func galleryTapped() {
+        var config = YPImagePickerConfiguration()
+        
+        /* Choose what media types are available in the library. Defaults to `.photo` */
+        config.library.mediaType = .photo
+        
+        /* Adds a Filter step in the photo taking process. Defaults to true */
+         config.showsPhotoFilters = false
+        
+        /* Enables you to opt out from saving new (or old but filtered) images to the
+         user's photo library. Defaults to true. */
+        config.shouldSaveNewPicturesToAlbum = false
+        
+        /* Defines which screen is shown at launch. Video mode will only work if `showsVideo = true`.
+         Default value is `.photo` */
+        config.startOnScreen = .library
+        
+        /* Defines which screens are shown at launch, and their order.
+         Default value is `[.library, .photo]` */
+        config.screens = [.library]// [.library, .photo, .video]
+        
+        /* Defines the time limit for videos from the library.
+         Defaults to 60 seconds. */
+        config.video.libraryTimeLimit = YPConfig.video.libraryTimeLimit
+        
+        /* Adds a Crop step in the photo taking process, after filters. Defaults to .none */
+        config.showsCrop = .none
+        
+        /* Customize wordings */
+        config.wordings.libraryTitle = YPConfig.wordings.libraryTitle
+        config.wordings.next = YPConfig.wordings.selectPhotoFromVideoCamera
+        
+        /* Defines if the bottom bar should be hidden when showing the picker. Default is false */
+        config.hidesBottomBar = true
+        
+        config.library.maxNumberOfItems = 1
+        config.gallery.hidesRemoveButton = false
+        
+        
+        config.preferredStatusBarStyle = .lightContent
+       
+        
+        let oldConfig = YPConfig
+        let picker = YPImagePicker(configuration: config)
+
+        /* Single Photo implementation. */
+         picker.didFinishPicking { [unowned picker] items, _ in
+            YPImagePickerConfiguration.shared = oldConfig
+
+            picker.dismiss(animated: true, completion: { [weak self] in
+              if let item = items.first {
+                                                     switch item {
+                                                     case .photo(p: let photo) :
+                                                         let image = photo.image
+                                                         self?.didCapturePhoto?(image)
+                                                     case .video(let v):
+                                                         self?.didCaptureVideo?(v.url)
+                                                     }
+                                                 }
+                                      })
+        }
+            
+        
+        /* Single Video implementation. */
+        picker.didFinishPicking { [unowned picker] items, cancelled in
+            YPImagePickerConfiguration.shared = oldConfig
+
+            if cancelled { picker.dismiss(animated: true, completion: nil); return }
+
+                        picker.dismiss(animated: true, completion: { [weak self] in
+            //                self?.present(playerVC, animated: true, completion: nil)
+            //                print("😀 \(String(describing: self?.resolutionForLocalVideo(url: assetURL)!))")
+                            if let item = items.first {
+                                       switch item {
+                                       case .photo(p: let photo) :
+                                           let image = photo.image
+                                           self?.didCapturePhoto?(image)
+                                       case .video(let v):
+                                           self?.didCaptureVideo?(v.url)
+                                       }
+                                   }
+                        })
+       
+//            self.selectedItems = items
+//            self.selectedImageV.image = items.singleVideo?.thumbnail
+//
+//            let assetURL = items.singleVideo!.url
+//            let playerVC = AVPlayerViewController()
+//            let player = AVPlayer(playerItem: AVPlayerItem(url:assetURL))
+//            playerVC.player = player
+        
+        }
+        
+        present(picker, animated: true, completion: nil)
     }
     
     // MARK: - Flip Camera
@@ -383,7 +502,8 @@ class YPCameraVideoVC: UIViewController, UIGestureRecognizerDelegate, YPPermissi
         //        guard self.viewState.canUseVideo else {
         //            return
         //        }
-        v.timeElapsedLabel.isHidden = false // show the time elapsed label since we're in the video screen.
+        v.showVideo()
+        //        v.timeElapsedLabel.isHidden = false // show the time elapsed label since we're in the video screen.
         self.refreshState()
         toggleRecording()
     }

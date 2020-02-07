@@ -65,9 +65,19 @@ public struct YPColors {
     public var coverSelectorBorderColor: UIColor = .offWhiteOrBlack
     
     // MARK: - Progress bar
+     
+     /// The color for the progress bar when processing video or images. The all track color.
+     public var progressBarTrackColor: UIColor = .ypSystemBackground
+     /// The color of completed track for the progress bar
+     public var progressBarCompletedColor: UIColor?
+
+    /// The color of track recoreding video  for the progress bar
+    public var progressBarRecordingColor: UIColor?
+
+    // MARK: - Label hint
+     
+     /// The color for the progress bar when processing video or images. The all track color.
+     public var hintTextColor: UIColor = .ypLabel
+     
     
-    /// The color for the progress bar when processing video or images. The all track color.
-    public var progressBarTrackColor: UIColor = .ypSystemBackground
-    /// The color of completed track for the progress bar
-    public var progressBarCompletedColor: UIColor?
 }

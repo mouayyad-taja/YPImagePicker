@@ -20,8 +20,6 @@ class YPCameraView: UIView, UIGestureRecognizerDelegate {
     let timeElapsedLabel = UILabel()
     let progressBar = UIProgressView()
 
-    let hintContainer = UIView()
-
     convenience init(overlayView: UIView? = nil) {
         self.init(frame: .zero)
         
@@ -30,7 +28,6 @@ class YPCameraView: UIView, UIGestureRecognizerDelegate {
             sv(
                 previewViewContainer,
                 overlayView,
-                hintContainer,
                 progressBar,
                 timeElapsedLabel,
                 flashButton,
@@ -55,7 +52,7 @@ class YPCameraView: UIView, UIGestureRecognizerDelegate {
         
         // Layout
         let isIphone4 = UIScreen.main.bounds.height == 480
-        let sideMargin: CGFloat = isIphone4 ? 20 : 39
+        let sideMargin: CGFloat = isIphone4 ? 20 : 0
         if YPConfig.onlySquareImagesFromCamera {
             layout(
                 0,

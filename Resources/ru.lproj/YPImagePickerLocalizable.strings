@@ -20,3 +20,5 @@
 "YPImagePickerVideoTooLong" = "Выберите видео короче %@ секунд";
 "YPImagePickerVideoTooShort" = "Видео должно быть длиннее %@ секунд";
 "YPImagePickerWarningItemsLimit" = "Максимум %d фото или видео";
+"YPCameraVideoHint" = "Tap and hold for video.";//TODO
+"YPSelectPhotoFromVideoCamera" = "Select";//TODO

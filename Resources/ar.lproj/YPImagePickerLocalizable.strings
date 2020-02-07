@@ -20,3 +20,6 @@
 "YPImagePickerVideoTooLong" = "ثانية %@ اختار فيديو بمدة اقل من ";
 "YPImagePickerVideoTooShort" = "الفيديو يجب ان يكون على الآقل %@ ثانية";
 "YPImagePickerWarningItemsLimit" = "الحد المسموح هوه %d صورة او فيديو";
+"YPCameraVideoHint" = "أضغط باستمرار من أجل تسجيل الفيديو";
+"YPSelectPhotoFromVideoCamera" = "اختيار";
+

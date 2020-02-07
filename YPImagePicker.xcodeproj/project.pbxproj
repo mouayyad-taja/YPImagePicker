@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34430EF423EDDE7C00791903 /* YPCameraVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34430EF323EDDE7B00791903 /* YPCameraVideoView.swift */; };
 		34AD4B7523E978BB001EE2BF /* YPCameraVideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AD4B7423E978BB001EE2BF /* YPCameraVideoVC.swift */; };
 		34AD4B7723EA42F7001EE2BF /* YPCameraVideoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AD4B7623EA42F7001EE2BF /* YPCameraVideoHelper.swift */; };
 		34AD4B7923EA43F3001EE2BF /* PreiOS10PhotoVideoCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AD4B7823EA43F3001EE2BF /* PreiOS10PhotoVideoCapture.swift */; };
@@ -103,6 +104,7 @@
 		16550C5C214D5EE60090BADF /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/YPImagePickerLocalizable.strings; sourceTree = "<group>"; };
 		2577138123B1E09300BB9C86 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/YPImagePickerLocalizable.strings; sourceTree = "<group>"; };
 		2577138223B1E09E00BB9C86 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/YPImagePickerLocalizable.strings; sourceTree = "<group>"; };
+		34430EF323EDDE7B00791903 /* YPCameraVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPCameraVideoView.swift; sourceTree = "<group>"; };
 		34AD4B7423E978BB001EE2BF /* YPCameraVideoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPCameraVideoVC.swift; sourceTree = "<group>"; };
 		34AD4B7623EA42F7001EE2BF /* YPCameraVideoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPCameraVideoHelper.swift; sourceTree = "<group>"; };
 		34AD4B7823EA43F3001EE2BF /* PreiOS10PhotoVideoCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreiOS10PhotoVideoCapture.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				34AD4B7423E978BB001EE2BF /* YPCameraVideoVC.swift */,
+				34430EF323EDDE7B00791903 /* YPCameraVideoView.swift */,
 				34AD4B7623EA42F7001EE2BF /* YPCameraVideoHelper.swift */,
 				34AD4B7823EA43F3001EE2BF /* PreiOS10PhotoVideoCapture.swift */,
 				34AD4B7A23EA443B001EE2BF /* PostiOS10PhotoVideoCapture.swift */,
@@ -644,6 +647,7 @@
 				99278DAC20512C330059532E /* YPPhotoCapture.swift in Sources */,
 				EB584BFF207B883A00265B38 /* YPSelectionsGalleryCell.swift in Sources */,
 				99278DB02051816F0059532E /* YPPhotoCaptureDefaults.swift in Sources */,
+				34430EF423EDDE7C00791903 /* YPCameraVideoView.swift in Sources */,
 				99C6D6CE1F1FB5C100711DB2 /* YPPhotoSaver.swift in Sources */,
 				99C6D6C31F1FB5C100711DB2 /* YPCameraView.swift in Sources */,
 				34AD4B7B23EA443B001EE2BF /* PostiOS10PhotoVideoCapture.swift in Sources */,

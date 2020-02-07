@@ -15,7 +15,7 @@ public protocol YPImagePickerDelegate: AnyObject {
 }
 
 open class YPImagePicker: UINavigationController {
-      
+    
     open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
@@ -29,6 +29,7 @@ open class YPImagePicker: UINavigationController {
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return YPImagePickerConfiguration.shared.preferredStatusBarStyle
     }
+    
     
     // This nifty little trick enables us to call the single version of the callbacks.
     // This keeps the backwards compatibility keeps the api as simple as possible.
@@ -59,7 +60,7 @@ open class YPImagePicker: UINavigationController {
         fatalError("init(coder:) has not been implemented")
     }
     
-override open func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         picker.didClose = { [weak self] in
             self?._didFinishPicking?([], true)
@@ -67,7 +68,11 @@ override open func viewDidLoad() {
         viewControllers = [picker]
         setupLoadingView()
         navigationBar.isTranslucent = false
-
+        
+        if YPImagePickerConfiguration.shared.hidesNavigationBar {
+            self.setNavigationBarHidden(true, animated: false)
+        }
+        
         picker.didSelectItems = { [weak self] items in
             // Use Fade transition instead of default push animation
             let transition = CATransition()
