@@ -122,12 +122,18 @@ class YPCameraVideoVC: UIViewController, UIGestureRecognizerDelegate, YPPermissi
     
     private func linkButtons() {
         v.flashButton.addTarget(self, action: #selector(flashButtonTapped), for: .touchUpInside)
-        v.shotButton.addTarget(self, action: #selector(shotButtonTapped), for: .touchUpInside)
         v.flipButton.addTarget(self, action: #selector(flipButtonTapped), for: .touchUpInside)
         
-        let longPressGesture = UILongPressGestureRecognizer.init(target: self, action: #selector(handleLongPress))
-        v.shotButton.addGestureRecognizer(longPressGesture);
         
+        if YPConfig.library.mediaType == .photo || YPConfig.library.mediaType == .photoAndVideo {
+            v.shotButton.addTarget(self, action: #selector(shotButtonTapped), for: .touchUpInside)
+        }
+        
+        if YPConfig.library.mediaType == .video || YPConfig.library.mediaType == .photoAndVideo {
+            let longPressGesture = UILongPressGestureRecognizer.init(target: self, action: #selector(handleLongPress))
+            v.shotButton.addGestureRecognizer(longPressGesture);
+            
+        }
         
         // Focus
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.focusTapped(_:)))
@@ -228,10 +234,10 @@ class YPCameraVideoVC: UIViewController, UIGestureRecognizerDelegate, YPPermissi
         var config = YPImagePickerConfiguration()
         
         /* Choose what media types are available in the library. Defaults to `.photo` */
-        config.library.mediaType = .photo
+        config.library.mediaType = YPConfig.library.mediaType
         
         /* Adds a Filter step in the photo taking process. Defaults to true */
-         config.showsPhotoFilters = false
+        config.showsPhotoFilters = false
         
         /* Enables you to opt out from saving new (or old but filtered) images to the
          user's photo library. Defaults to true. */
@@ -264,57 +270,57 @@ class YPCameraVideoVC: UIViewController, UIGestureRecognizerDelegate, YPPermissi
         
         
         config.preferredStatusBarStyle = .lightContent
-       
+        
         
         let oldConfig = YPConfig
         let picker = YPImagePicker(configuration: config)
-
+        
         /* Single Photo implementation. */
-         picker.didFinishPicking { [unowned picker] items, _ in
+        picker.didFinishPicking { [unowned picker] items, _ in
             YPImagePickerConfiguration.shared = oldConfig
-
-            picker.dismiss(animated: true, completion: { [weak self] in
-              if let item = items.first {
-                                                     switch item {
-                                                     case .photo(p: let photo) :
-                                                         let image = photo.image
-                                                         self?.didCapturePhoto?(image)
-                                                     case .video(let v):
-                                                         self?.didCaptureVideo?(v.url)
-                                                     }
-                                                 }
-                                      })
-        }
             
+            picker.dismiss(animated: true, completion: { [weak self] in
+                if let item = items.first {
+                    switch item {
+                    case .photo(p: let photo) :
+                        let image = photo.image
+                        self?.didCapturePhoto?(image)
+                    case .video(let v):
+                        self?.didCaptureVideo?(v.url)
+                    }
+                }
+            })
+        }
+        
         
         /* Single Video implementation. */
         picker.didFinishPicking { [unowned picker] items, cancelled in
             YPImagePickerConfiguration.shared = oldConfig
-
+            
             if cancelled { picker.dismiss(animated: true, completion: nil); return }
-
-                        picker.dismiss(animated: true, completion: { [weak self] in
-            //                self?.present(playerVC, animated: true, completion: nil)
-            //                print("😀 \(String(describing: self?.resolutionForLocalVideo(url: assetURL)!))")
-                            if let item = items.first {
-                                       switch item {
-                                       case .photo(p: let photo) :
-                                           let image = photo.image
-                                           self?.didCapturePhoto?(image)
-                                       case .video(let v):
-                                           self?.didCaptureVideo?(v.url)
-                                       }
-                                   }
-                        })
-       
-//            self.selectedItems = items
-//            self.selectedImageV.image = items.singleVideo?.thumbnail
-//
-//            let assetURL = items.singleVideo!.url
-//            let playerVC = AVPlayerViewController()
-//            let player = AVPlayer(playerItem: AVPlayerItem(url:assetURL))
-//            playerVC.player = player
-        
+            
+            picker.dismiss(animated: true, completion: { [weak self] in
+                //                self?.present(playerVC, animated: true, completion: nil)
+                //                print("😀 \(String(describing: self?.resolutionForLocalVideo(url: assetURL)!))")
+                if let item = items.first {
+                    switch item {
+                    case .photo(p: let photo) :
+                        let image = photo.image
+                        self?.didCapturePhoto?(image)
+                    case .video(let v):
+                        self?.didCaptureVideo?(v.url)
+                    }
+                }
+            })
+            
+            //            self.selectedItems = items
+            //            self.selectedImageV.image = items.singleVideo?.thumbnail
+            //
+            //            let assetURL = items.singleVideo!.url
+            //            let playerVC = AVPlayerViewController()
+            //            let player = AVPlayer(playerItem: AVPlayerItem(url:assetURL))
+            //            playerVC.player = player
+            
         }
         
         present(picker, animated: true, completion: nil)
