@@ -90,7 +90,7 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
             cameraVideoVC = YPCameraVideoVC()
             cameraVideoVC?.didCapturePhoto = { [weak self] img in
                 self?.didSelectItems?([YPMediaItem.photo(p: YPMediaPhoto(image: img,
-                                                                        fromCamera: true))])
+                                                                        fromCamera: true, showFullEditingTools: true))])
             }
             
             
@@ -98,7 +98,7 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
                 self?.didSelectItems?([YPMediaItem
                     .video(v: YPMediaVideo(thumbnail: thumbnailFromVideoPath(videoURL),
                                            videoURL: videoURL,
-                                           fromCamera: true))])
+                                           fromCamera: true, showFullEditingTools: true))])
             }
             cameraVideoVC?.didCloseVC = {
                 self.close()

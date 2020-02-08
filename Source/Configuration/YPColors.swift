@@ -25,31 +25,31 @@ public struct YPColors {
     
     /// The background color of the bottom of photo and video screens.
     public var photoVideoScreenBackgroundColor: UIColor = .offWhiteOrBlack
-
+    
     /// The background color of the library and space between collection view cells.
     public var libraryScreenBackgroundColor: UIColor = .offWhiteOrBlack
-
+    
     /// The background color of safe area. For example under the menu items.
     public var safeAreaBackgroundColor: UIColor = .offWhiteOrBlack
-
+    
     /// A color for background of the asset container. You can see it when bouncing the image.
     public var assetViewBackgroundColor: UIColor = .offWhiteOrBlack
     
     /// A color for background in filters.
     public var filterBackgroundColor: UIColor = .offWhiteOrBlack
-
+    
     /// A color for background in selections gallery. When multiple items selected.
     public var selectionsBackgroundColor: UIColor = .offWhiteOrBlack
-
+    
     /// A color for bottom buttons (photo, video, all photos).
     public var bottomMenuItemBackgroundColor: UIColor = .clear
-
+    
     /// A color for for bottom buttons selected text.
     public var bottomMenuItemSelectedTextColor: UIColor = .ypLabel
-
+    
     /// A color for for bottom buttons not selected text.
     public var bottomMenuItemUnselectedTextColor: UIColor = .ypSecondaryLabel
-
+    
     // MARK: - Trimmer
     
     /// The color of the main border of the view
@@ -65,19 +65,27 @@ public struct YPColors {
     public var coverSelectorBorderColor: UIColor = .offWhiteOrBlack
     
     // MARK: - Progress bar
-     
-     /// The color for the progress bar when processing video or images. The all track color.
-     public var progressBarTrackColor: UIColor = .ypSystemBackground
-     /// The color of completed track for the progress bar
-     public var progressBarCompletedColor: UIColor?
-
+    
+    /// The color for the progress bar when processing video or images. The all track color.
+    public var progressBarTrackColor: UIColor = .ypSystemBackground
+    /// The color of completed track for the progress bar
+    public var progressBarCompletedColor: UIColor?
+    
     /// The color of track recoreding video  for the progress bar
     public var progressBarRecordingColor: UIColor?
-
+    
     // MARK: - Label hint
-     
-     /// The color for the progress bar when processing video or images. The all track color.
-     public var hintTextColor: UIColor = .ypLabel
-     
+    
+    /// The color for the hint text in camera video.
+    public var hintTextColor: UIColor = .ypLabel
+    
+    // MARK: - Filter
+    
+    /// The color for the filter name.
+    public var filterTextColor: UIColor = UIColor.ypSecondaryLabel
+    
+    
+    
+    
     
 }

@@ -29,5 +29,9 @@ public struct YPIcons {
     public var removeImage: UIImage = imageFromBundle("yp_remove")
     public var galleryImage: UIImage = imageFromBundle("yp_gallery")
     public var closeImage: UIImage = imageFromBundle("yp_close")
-    
+    public var effectsImage: UIImage = imageFromBundle("yp_effects")
+    public var cropImage: UIImage = imageFromBundle("yp_crop")
+    public var textImage: UIImage = imageFromBundle("yp_text")
+    public var filterBackButtonIcon: UIImage = imageFromBundle("yp_arrow_left_filter")
+
 }

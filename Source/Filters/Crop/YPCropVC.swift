@@ -16,7 +16,8 @@ public enum YPCropType {
 class YPCropVC: UIViewController {
     
     public var didFinishCropping: ((UIImage) -> Void)?
-    
+    public var didCancel: (() -> Void)?
+
     override var prefersStatusBarHidden: Bool { return YPConfig.hidesStatusBar }
     
     private let originalImage: UIImage
@@ -74,6 +75,7 @@ class YPCropVC: UIViewController {
     @objc
     func cancel() {
         navigationController?.popViewController(animated: true)
+        didCancel?()
     }
     
     @objc

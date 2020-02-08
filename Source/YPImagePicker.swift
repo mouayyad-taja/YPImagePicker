@@ -112,6 +112,10 @@ open class YPImagePicker: UINavigationController {
                 }
                 
                 func showCropVC(photo: YPMediaPhoto, completion: @escaping (_ aphoto: YPMediaPhoto) -> Void) {
+                    if photo.showFullEditingTools {
+                        completion(photo)
+                        return
+                    }
                     if case let YPCropType.rectangle(ratio) = YPConfig.showsCrop {
                         let cropVC = YPCropVC(image: photo.image, ratio: ratio)
                         cropVC.didFinishCropping = { croppedImage in
@@ -125,15 +129,30 @@ open class YPImagePicker: UINavigationController {
                 }
                 
                 if YPConfig.showsPhotoFilters {
-                    let filterVC = YPPhotoFiltersVC(inputPhoto: photo,
-                                                    isFromSelectionVC: false)
-                    // Show filters and then crop
-                    filterVC.didSave = { outputMedia in
-                        if case let YPMediaItem.photo(outputPhoto) = outputMedia {
-                            showCropVC(photo: outputPhoto, completion: completion)
+                    var vc : UIViewController!
+                    if photo.showFullEditingTools {
+                        let filterVC = YPPhotoEditingVC(inputPhoto: photo,
+                                                        isFromSelectionVC: false)
+                        // Show filters and then crop
+                        filterVC.didSave = { outputMedia in
+                            if case let YPMediaItem.photo(outputPhoto) = outputMedia {
+                                showCropVC(photo: outputPhoto, completion: completion)
+                            }
                         }
+                        vc = filterVC
+
+                    }else {
+                        let filterVC = YPPhotoFiltersVC(inputPhoto: photo,
+                                                        isFromSelectionVC: false)
+                        // Show filters and then crop
+                        filterVC.didSave = { outputMedia in
+                            if case let YPMediaItem.photo(outputPhoto) = outputMedia {
+                                showCropVC(photo: outputPhoto, completion: completion)
+                            }
+                        }
+                        vc = filterVC
                     }
-                    self?.pushViewController(filterVC, animated: false)
+                    self?.pushViewController(vc, animated: false)
                 } else {
                     showCropVC(photo: photo, completion: completion)
                 }

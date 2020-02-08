@@ -155,7 +155,10 @@ class ExampleViewController: UIViewController {
         //Set colors
         config.colors.hintTextColor = .white
         config.colors.photoVideoScreenBackgroundColor = .black
+        config.colors.filterBackgroundColor = .black
+        
         config.colors.progressBarRecordingColor = .red
+        config.colors.filterTextColor = .white
         
         /* Images */
         config.icons.flashOffIcon = #imageLiteral(resourceName: "flash_auto.png")

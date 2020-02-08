@@ -22,13 +22,12 @@ class YPFilterCollectionViewCell: UICollectionViewCell {
     }
     override var isSelected: Bool {
         didSet {
-            name.textColor = isSelected
-                ? UIColor.ypLabel
-                : UIColor.ypSecondaryLabel
             name.font = .systemFont(
                 ofSize: 11,
-                weight: isSelected ? .semibold : .regular
+                weight: isSelected ? .bold : .regular
             )
+            imageView.layer.borderWidth = isSelected ? 2 : 0
+
         }
     }
     
@@ -37,20 +36,24 @@ class YPFilterCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         sv(
-            name,
-            imageView
+            imageView,
+            name
         )
         
-        |name|.top(0)
-        |imageView|.bottom(0).heightEqualsWidth()
+        |imageView|.top(0).heightEqualsWidth()
+        |name|.bottom(0)
         
         name.font = .systemFont(ofSize: 11, weight: UIFont.Weight.regular)
-        name.textColor = UIColor.ypSecondaryLabel
+        name.textColor = YPConfig.colors.filterTextColor
         name.textAlignment = .center
         
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 5
         
+        imageView.layer.borderColor = YPConfig.colors.filterTextColor.cgColor
+        imageView.layer.borderWidth = 0
+            
         self.clipsToBounds = false
         self.layer.shadowColor = UIColor.ypLabel.cgColor
         self.layer.shadowOpacity = 0.2
