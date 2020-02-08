@@ -112,7 +112,7 @@ open class YPImagePicker: UINavigationController {
                 }
                 
                 func showCropVC(photo: YPMediaPhoto, completion: @escaping (_ aphoto: YPMediaPhoto) -> Void) {
-                    if photo.showFullEditingTools {
+                     if YPConfig.fullEditingMode {
                         completion(photo)
                         return
                     }
@@ -130,7 +130,7 @@ open class YPImagePicker: UINavigationController {
                 
                 if YPConfig.showsPhotoFilters {
                     var vc : UIViewController!
-                    if photo.showFullEditingTools {
+                    if YPConfig.fullEditingMode {
                         let filterVC = YPPhotoEditingVC(inputPhoto: photo,
                                                         isFromSelectionVC: false)
                         // Show filters and then crop

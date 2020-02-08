@@ -16,32 +16,32 @@ class YPPhotoEditingVC: UIViewController , IsMediaFilterVC, UIGestureRecognizerD
         super.init(nibName: nil, bundle: nil)
         
         self.inputPhoto = inputPhoto
-//        self.isFromSelectionVC = isFromSelectionVC
+        //        self.isFromSelectionVC = isFromSelectionVC
     }
     
     public var inputPhoto: YPMediaPhoto!
-//    public var isFromSelectionVC = false
-
+    //    public var isFromSelectionVC = false
+    
     public var didSave: ((YPMediaItem) -> Void)?
     public var didCancel: (() -> Void)?
-
-
+    
+    
     fileprivate let filters: [YPFilter] = YPConfig.filters
-
+    
     fileprivate var selectedFilter: YPFilter?
     
     fileprivate var filteredThumbnailImagesArray: [UIImage] = []
     fileprivate var thumbnailImageForFiltering: CIImage? // Small image for creating filters thumbnails
     fileprivate var currentlySelectedImageThumbnail: UIImage? // Used for comparing with original image when tapped
-
+    
     fileprivate var v = YPFiltersEditingView()
-
+    
     override open var prefersStatusBarHidden: Bool { return YPConfig.hidesStatusBar }
     override open func loadView() { view = v }
     required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     // MARK: - Life Cycle ♻️
-
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,36 +53,51 @@ class YPPhotoEditingVC: UIViewController , IsMediaFilterVC, UIGestureRecognizerD
         v.collectionView.register(YPFilterCollectionViewCell.self, forCellWithReuseIdentifier: "FilterCell")
         v.collectionView.dataSource = self
         v.collectionView.delegate = self
-
+        
         view.backgroundColor = YPConfig.colors.filterBackgroundColor
         
         //Setup buttons
         linkButtons()
         
         // Setup of Navigation Bar
-//        title = YPConfig.wordings.filter
-//        if isFromSelectionVC {
-//            navigationItem.leftBarButtonItem = UIBarButtonItem(title: YPConfig.wordings.cancel,
-//                                                               style: .plain,
-//                                                               target: self,
-//                                                               action: #selector(cancel))
-//        }
-//        setupRightBarButton()
+        //        title = YPConfig.wordings.filter
+        //        if isFromSelectionVC {
+        //            navigationItem.leftBarButtonItem = UIBarButtonItem(title: YPConfig.wordings.cancel,
+        //                                                               style: .plain,
+        //                                                               target: self,
+        //                                                               action: #selector(cancel))
+        //        }
+        //        setupRightBarButton()
         
         YPHelper.changeBackButtonIcon(self)
         YPHelper.changeBackButtonTitle(self)
         self.showEffects()
-
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let nav = self.navigationController{
+            if !nav.isNavigationBarHidden {
+                nav.setNavigationBarHidden(true, animated: true)
+            }
+        }
+        
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if !YPConfig.hidesNavigationBar {
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+        }
     }
     
     // MARK: Setup - ⚙️
     private func linkButtons() {
-       v.effectButton.addTarget(self, action: #selector(effectsButtonTapped), for: .touchUpInside)
-       v.cropButton.addTarget(self, action: #selector(cropButtonTapped), for: .touchUpInside)
-       v.textButton.addTarget(self, action: #selector(textButtonTapped), for: .touchUpInside)
+        v.effectButton.addTarget(self, action: #selector(effectsButtonTapped), for: .touchUpInside)
+        v.cropButton.addTarget(self, action: #selector(cropButtonTapped), for: .touchUpInside)
+        v.textButton.addTarget(self, action: #selector(textButtonTapped), for: .touchUpInside)
         v.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         v.nextButton.addTarget(self, action: #selector(save), for: .touchUpInside)
-
+        
         
         // Touch preview to see original image.
         let touchDownGR = UILongPressGestureRecognizer(target: self,
@@ -92,17 +107,17 @@ class YPPhotoEditingVC: UIViewController , IsMediaFilterVC, UIGestureRecognizerD
         v.imageView.addGestureRecognizer(touchDownGR)
         v.imageView.isUserInteractionEnabled = true
     }
-//    fileprivate func setupRightBarButton() {
-//        let rightBarButtonTitle = isFromSelectionVC ? YPConfig.wordings.done : YPConfig.wordings.next
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: rightBarButtonTitle,
-//                                                            style: .done,
-//                                                            target: self,
-//                                                            action: #selector(save))
-//        navigationItem.rightBarButtonItem?.tintColor = YPConfig.colors.tintColor
-//    }
+    //    fileprivate func setupRightBarButton() {
+    //        let rightBarButtonTitle = isFromSelectionVC ? YPConfig.wordings.done : YPConfig.wordings.next
+    //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: rightBarButtonTitle,
+    //                                                            style: .done,
+    //                                                            target: self,
+    //                                                            action: #selector(save))
+    //        navigationItem.rightBarButtonItem?.tintColor = YPConfig.colors.tintColor
+    //    }
     
     // MARK: - Methods 🏓
-
+    
     @objc
     fileprivate func handleTouchDown(sender: UILongPressGestureRecognizer) {
         switch sender.state {
@@ -143,8 +158,8 @@ class YPPhotoEditingVC: UIViewController , IsMediaFilterVC, UIGestureRecognizerD
                 DispatchQueue.main.async {
                     self.v.collectionView.reloadData()
                     self.v.collectionView.selectItem(at: IndexPath(row: 0, section: 0),
-                                                animated: false,
-                                                scrollPosition: UICollectionView.ScrollPosition.bottom)
+                                                     animated: false,
+                                                     scrollPosition: UICollectionView.ScrollPosition.bottom)
                     self.v.filtersLoader.stopAnimating()
                 }
             }
@@ -194,9 +209,9 @@ class YPPhotoEditingVC: UIViewController , IsMediaFilterVC, UIGestureRecognizerD
         let cropVC = YPCropVC(image: inputPhoto.originalImage   , ratio: 1)
         cropVC.didFinishCropping = { croppedImage in
             self.inputPhoto.originalImage = croppedImage
-//            self.v.imageView.image = self.inputPhoto.modifiedImage
-//            photo.modifiedImage = croppedImage
-//            completion(photo)
+            //            self.v.imageView.image = self.inputPhoto.modifiedImage
+            //            photo.modifiedImage = croppedImage
+            //            completion(photo)
             self.updateFilter()
             nav.dismiss(animated: true, completion: nil)
         }
@@ -211,7 +226,7 @@ class YPPhotoEditingVC: UIViewController , IsMediaFilterVC, UIGestureRecognizerD
     func save() {
         guard let didSave = didSave else { return print("Don't have saveCallback") }
         self.navigationItem.rightBarButtonItem = YPLoaders.defaultLoader
-
+        
         DispatchQueue.global().async {
             if let f = self.selectedFilter,
                 let applier = f.applier,
@@ -223,7 +238,7 @@ class YPPhotoEditingVC: UIViewController , IsMediaFilterVC, UIGestureRecognizerD
             }
             DispatchQueue.main.async {
                 didSave(YPMediaItem.photo(p: self.inputPhoto))
-//                self.setupRightBarButton()
+                //                self.setupRightBarButton()
             }
         }
     }
@@ -252,8 +267,8 @@ extension YPPhotoEditingVC: UICollectionViewDataSource {
 extension YPPhotoEditingVC: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedFilter = filters[indexPath.row]
-//        currentlySelectedImageThumbnail = filteredThumbnailImagesArray[indexPath.row]
-//        self.v.imageView.image = currentlySelectedImageThumbnail
+        //        currentlySelectedImageThumbnail = filteredThumbnailImagesArray[indexPath.row]
+        //        self.v.imageView.image = currentlySelectedImageThumbnail
         updateFilter()
     }
 }

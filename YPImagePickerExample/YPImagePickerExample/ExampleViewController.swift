@@ -67,6 +67,7 @@ class ExampleViewController: UIViewController {
         
         var config = YPImagePickerConfiguration()
 
+        config.fullEditingMode = true
         /* Uncomment and play around with the configuration 👨‍🔬 🚀 */
 
         /* Set this to true if you want to force the  library output to be a squared image. Defaults to false */
@@ -111,7 +112,7 @@ class ExampleViewController: UIViewController {
 
         /* Defines which screens are shown at launch, and their order.
            Default value is `[.library, .photo]` */
-        config.screens = [.photoVideo]// [.library, .photo, .video]
+        config.screens = [.library]// [.library, .photo, .video]
         
         /* Can forbid the items with very big height with this property */
 //        config.library.minWidthForItem = UIScreen.main.bounds.width * 0.8
@@ -143,7 +144,7 @@ class ExampleViewController: UIViewController {
         /* Defines if the bottom bar should be hidden when showing the picker. Default is false */
         config.hidesBottomBar = true
         
-        config.hidesNavigationBar = true
+//        config.hidesNavigationBar = true
         
         config.maxCameraZoomFactor = 2.0
 
@@ -170,7 +171,7 @@ class ExampleViewController: UIViewController {
 
         /* Disable scroll to change between mode */
         // config.isScrollToChangeModesEnabled = false
-//        config.library.minNumberOfItems = 2
+        config.library.minNumberOfItems = 1
         
         /* Skip selection gallery after multiple selections */
         // config.library.skipSelectionsGallery = true

@@ -19,6 +19,9 @@ public struct YPImagePickerConfiguration {
     
     public init() {}
     
+    /// Edit photo or video as full page , defaults to true
+    public var fullEditingMode = false
+    
     /// Scroll to change modes, defaults to true
     public var isScrollToChangeModesEnabled = true
     
