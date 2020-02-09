@@ -10,9 +10,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YPFullVideoFiltersVC" customModule="YPImagePicker" customModuleProvider="target">
             <connections>
+                <outlet property="backButton" destination="sEk-kT-B27" id="Jvu-jg-l9n"/>
                 <outlet property="coverBottomItem" destination="qy9-MY-67C" id="LaY-F2-uVO"/>
                 <outlet property="coverImageView" destination="daH-No-sZc" id="sNy-7V-7gV"/>
                 <outlet property="coverThumbSelectorView" destination="Tqq-Gf-aeR" id="CZG-rg-NWB"/>
+                <outlet property="nextButton" destination="dCh-4Z-9iy" id="VdO-bK-bDR"/>
                 <outlet property="trimBottomItem" destination="uB8-a7-Vh0" id="7Rn-9o-WWN"/>
                 <outlet property="trimmerView" destination="W4N-1E-jNP" id="a4g-Mg-65j"/>
                 <outlet property="videoView" destination="AFl-Bk-oPH" id="x8U-ib-yqT"/>
@@ -24,25 +26,29 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qy9-MY-67C" customClass="YPMenuItem" customModule="YPImagePicker" customModuleProvider="target">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qy9-MY-67C" customClass="YPMenuItem" customModule="YPImagePicker" customModuleProvider="target">
                     <rect key="frame" x="187.5" y="627" width="187.5" height="40"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="Ik5-9V-0hz"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uB8-a7-Vh0" customClass="YPMenuItem" customModule="YPImagePicker" customModuleProvider="target">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uB8-a7-Vh0" customClass="YPMenuItem" customModule="YPImagePicker" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="627" width="187.5" height="40"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dCh-4Z-9iy">
+                    <rect key="frame" x="313" y="629" width="46" height="30"/>
+                    <state key="normal" title="Button"/>
+                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AFl-Bk-oPH" customClass="YPVideoView" customModule="YPImagePicker" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="627"/>
+                    <rect key="frame" x="0.0" y="35" width="375" height="586"/>
                 </view>
                 <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="daH-No-sZc">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="627"/>
+                    <rect key="frame" x="0.0" y="35" width="375" height="586"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dMy-Fy-gyR">
-                    <rect key="frame" x="0.0" y="32" width="375" height="50"/>
+                    <rect key="frame" x="0.0" y="67" width="375" height="50"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W4N-1E-jNP" customClass="TrimmerView" customModule="PryntTrimmerView">
                             <rect key="frame" x="30" y="0.0" width="315" height="50"/>
@@ -66,30 +72,53 @@
                         <constraint firstItem="Tqq-Gf-aeR" firstAttribute="bottom" secondItem="W4N-1E-jNP" secondAttribute="bottom" id="vGS-BO-IUw"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YhS-Qm-6M6">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="35"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEk-kT-B27">
+                            <rect key="frame" x="8" y="0.0" width="24" height="35"/>
+                            <state key="normal" image="yp_arrow_left_filter"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="BWZ-by-NwT"/>
+                        <constraint firstItem="sEk-kT-B27" firstAttribute="top" secondItem="YhS-Qm-6M6" secondAttribute="top" id="QNK-OH-32b"/>
+                        <constraint firstAttribute="bottom" secondItem="sEk-kT-B27" secondAttribute="bottom" id="gEf-JK-qoe"/>
+                        <constraint firstItem="sEk-kT-B27" firstAttribute="leading" secondItem="YhS-Qm-6M6" secondAttribute="leading" constant="8" id="gfR-TP-Qpe"/>
+                    </constraints>
+                </view>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="AFl-Bk-oPH" firstAttribute="top" secondItem="YhS-Qm-6M6" secondAttribute="bottom" id="492-ya-fxZ"/>
                 <constraint firstItem="uB8-a7-Vh0" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="CC1-rc-s2V"/>
-                <constraint firstItem="qy9-MY-67C" firstAttribute="top" secondItem="AFl-Bk-oPH" secondAttribute="bottom" id="Edy-lc-frm"/>
                 <constraint firstItem="AFl-Bk-oPH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="FRD-Vm-8CW"/>
                 <constraint firstItem="uB8-a7-Vh0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Fzr-Gx-9yI"/>
+                <constraint firstItem="YhS-Qm-6M6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="GIj-pl-HYM"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="AFl-Bk-oPH" secondAttribute="trailing" id="HuF-V0-NP6"/>
                 <constraint firstItem="daH-No-sZc" firstAttribute="top" secondItem="AFl-Bk-oPH" secondAttribute="top" id="IXg-d6-twu"/>
+                <constraint firstItem="dCh-4Z-9iy" firstAttribute="top" secondItem="AFl-Bk-oPH" secondAttribute="bottom" constant="8" id="JI0-vI-KNo"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="qy9-MY-67C" secondAttribute="bottom" id="K8l-EJ-kc2"/>
                 <constraint firstItem="daH-No-sZc" firstAttribute="bottom" secondItem="AFl-Bk-oPH" secondAttribute="bottom" id="MaG-K6-Aq8"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="qy9-MY-67C" secondAttribute="trailing" id="RdA-eh-2U7"/>
-                <constraint firstItem="AFl-Bk-oPH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="SaE-kX-wSu"/>
+                <constraint firstItem="YhS-Qm-6M6" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Sc1-ui-Srh"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="dCh-4Z-9iy" secondAttribute="bottom" constant="8" id="Tb9-ag-cvS"/>
                 <constraint firstItem="dMy-Fy-gyR" firstAttribute="top" secondItem="AFl-Bk-oPH" secondAttribute="top" constant="32" id="Zmm-0J-Jwf"/>
                 <constraint firstItem="uB8-a7-Vh0" firstAttribute="height" secondItem="qy9-MY-67C" secondAttribute="height" id="dil-cq-CMa"/>
                 <constraint firstItem="dMy-Fy-gyR" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ecA-Oe-ps4"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="dMy-Fy-gyR" secondAttribute="trailing" id="hyI-iq-qoa"/>
                 <constraint firstItem="qy9-MY-67C" firstAttribute="leading" secondItem="uB8-a7-Vh0" secondAttribute="trailing" id="i8m-ID-dah"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="dCh-4Z-9iy" secondAttribute="trailing" constant="16" id="lgD-hq-tr0"/>
                 <constraint firstItem="daH-No-sZc" firstAttribute="leading" secondItem="AFl-Bk-oPH" secondAttribute="leading" id="mBO-x4-u0c"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="YhS-Qm-6M6" secondAttribute="trailing" id="mlc-8v-L13"/>
                 <constraint firstItem="daH-No-sZc" firstAttribute="trailing" secondItem="AFl-Bk-oPH" secondAttribute="trailing" id="ncu-ea-Qsv"/>
                 <constraint firstItem="uB8-a7-Vh0" firstAttribute="width" secondItem="qy9-MY-67C" secondAttribute="width" id="qhk-iL-B9n"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="32.5" y="105.5"/>
+            <point key="canvasLocation" x="31.199999999999999" y="104.7976011994003"/>
         </view>
     </objects>
+    <resources>
+        <image name="yp_arrow_left_filter" width="24" height="24"/>
+    </resources>
 </document>

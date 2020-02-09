@@ -68,7 +68,6 @@ class YPVideoProcessor {
         
         // input clip
         let clipVideoTrack = asset.tracks(withMediaType: .video)[0]
-        
         // make it square
         let videoComposition = AVMutableVideoComposition()
         if YPConfig.onlySquareImagesFromCamera {

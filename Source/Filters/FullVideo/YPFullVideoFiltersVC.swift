@@ -20,6 +20,9 @@ public class YPFullVideoFiltersVC: UIViewController, IsMediaFilterVC {
     @IBOutlet weak var videoView: YPVideoView!
     @IBOutlet weak var trimmerView: TrimmerView!
     
+    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
+
     @IBOutlet weak var coverImageView: UIImageView!
     @IBOutlet weak var coverThumbSelectorView: ThumbSelectorView!
 
@@ -54,6 +57,22 @@ public class YPFullVideoFiltersVC: UIViewController, IsMediaFilterVC {
         trimmerView.positionBarColor = YPConfig.colors.positionLineColor
         trimmerView.maxDuration = YPConfig.video.trimmerMaxDuration
         trimmerView.minDuration = YPConfig.video.trimmerMinDuration
+        
+        
+          nextButton.style { (b) in
+              b.setTitle(YPConfig.wordings.next, for: .normal)
+              b.backgroundColor = .offWhiteOrBlack
+              b.setTitleColor(.darkGray, for: .normal)
+              b.layer.cornerRadius = b.frame.height / 2.0
+          }
+        nextButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 12, bottom: 5, right: 12)
+
+        nextButton.addTarget(self, action: #selector(save), for: .touchUpInside)
+
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+
+        
+              
         
         coverThumbSelectorView.thumbBorderColor = YPConfig.colors.coverSelectorBorderColor
         
@@ -149,6 +168,11 @@ public class YPFullVideoFiltersVC: UIViewController, IsMediaFilterVC {
     
     @objc func cancel() {
         didCancel?()
+    }
+    
+    @objc
+    func backButtonTapped() {
+        self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: - Bottom buttons
