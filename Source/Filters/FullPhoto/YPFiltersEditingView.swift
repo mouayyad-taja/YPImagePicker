@@ -57,11 +57,11 @@ class YPFiltersEditingView: UIView {
             actionsStackView.top(0)
             bottomContainerView.bottom(0)
         }
-        imageView.Top == actionsStackView.Top
+        imageView.Top == actionsStackView.Bottom
         imageView.Bottom == bottomContainerView.Top
 
         actionsStackView-actionSideMargin-|
-        actionsStackView.height(30)
+        actionsStackView.height(35)
         actionsStackView.addArrangedSubview(cropButton)
         actionsStackView.addArrangedSubview(effectButton)
         actionsStackView.addArrangedSubview(textButton)
@@ -72,7 +72,7 @@ class YPFiltersEditingView: UIView {
         
         backButton.Top == actionsStackView.Top
         |-actionSideMargin-backButton
-        backButton.height(30)
+        backButton.height(35)
         backButton.heightEqualsWidth()
         
         |-sideMargin-imageView-sideMargin-|
@@ -80,7 +80,7 @@ class YPFiltersEditingView: UIView {
         
         
         |bottomContainerView|
-        bottomContainerView.height(50)
+        bottomContainerView.height(40)
 
         nextButton-32-|
         nextButton.centerVertically()
@@ -101,7 +101,7 @@ class YPFiltersEditingView: UIView {
         
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        
+
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
         
@@ -111,7 +111,7 @@ class YPFiltersEditingView: UIView {
         actionsStackView.style { (aSV) in
             aSV.axis = .horizontal
             aSV.distribution = .fillEqually
-            aSV.spacing = 8
+            aSV.spacing = 12
         }
         
         nextButton.style { (b) in

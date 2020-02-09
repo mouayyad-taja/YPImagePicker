@@ -15,7 +15,7 @@ extension YPPhotoVideoCapture {
     
     private func setupCaptureSession() {
         session.beginConfiguration()
-        session.sessionPreset = .photo
+        session.sessionPreset = .high//.hd1920x1080
         let cameraPosition: AVCaptureDevice.Position = YPConfig.usesFrontCamera ? .front : .back
         let aDevice = deviceForPosition(cameraPosition)
         if let d = aDevice {
@@ -78,7 +78,7 @@ extension YPPhotoVideoCapture {
         if !session.isRunning {
             sessionQueue.async { [weak self] in
                 // Re-apply session preset
-                self?.session.sessionPreset = .photo
+                self?.session.sessionPreset = .high//.hd1920x1080
                 let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
                 switch status {
                 case .notDetermined, .restricted, .denied:

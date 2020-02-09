@@ -112,7 +112,7 @@ class ExampleViewController: UIViewController {
 
         /* Defines which screens are shown at launch, and their order.
            Default value is `[.library, .photo]` */
-        config.screens = [.library]// [.library, .photo, .video]
+        config.screens = [.photoVideo]// [.library, .photo, .video]
         
         /* Can forbid the items with very big height with this property */
 //        config.library.minWidthForItem = UIScreen.main.bounds.width * 0.8
@@ -126,7 +126,7 @@ class ExampleViewController: UIViewController {
         config.video.libraryTimeLimit = 500.0
 
         /* Adds a Crop step in the photo taking process, after filters. Defaults to .none */
-        config.showsCrop = .rectangle(ratio: (16/9))
+        config.showsCrop = .none//rectangle(ratio: (16/9))
 
         /* Defines the overlay view for the camera. Defaults to UIView(). */
         // let overlayView = UIView()
@@ -144,7 +144,7 @@ class ExampleViewController: UIViewController {
         /* Defines if the bottom bar should be hidden when showing the picker. Default is false */
         config.hidesBottomBar = true
         
-//        config.hidesNavigationBar = true
+        config.hidesNavigationBar = true
         
         config.maxCameraZoomFactor = 2.0
 
